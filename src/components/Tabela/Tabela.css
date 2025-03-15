@@ -53,7 +53,7 @@ tbody tr:hover {
 
 /* Botão de Editar */
 .edit-button {
-    background-color: #FFD700; /* Cor amarela */
+    background-color: #e8dc9b; /* Cor amarela */
     color: #000; /* Texto preto */
     border: none;
     padding: 6px 12px;
@@ -71,7 +71,7 @@ tbody tr:hover {
 
 /* Botão de Excluir */
 .delete-button {
-    background-color: #dc3545; /* Cor vermelha */
+    background-color: #eb8f8f; /* Cor vermelha */
     color: white; /* Texto branco */
     border: none;
     padding: 6px 12px;

@@ -1,6 +1,7 @@
 import './Tabela.css';
 import React, { useState, useEffect } from 'react';
 import { getAllFuncionario, getFuncionario, createFuncionairo, deleteFuncionario, patchFuncionario } from '../../api/funcionario';
+import { useLocation } from 'react-router-dom';
 
 const FuncionarioLista = () => {
     const [funcionarios, setFuncionarios] = useState([]);
@@ -12,6 +13,9 @@ const FuncionarioLista = () => {
 
     const openForm = () => setIsOpen(true);
     const closeForm = () => setIsOpen(false);
+
+    const location = useLocation();
+    const equipe = location.state?.equipe || JSON.parse(localStorage.getItem("equipeSelecionada"));
 
     useEffect(() => {
         const fetchFuncionarios = async () => {
@@ -38,14 +42,15 @@ const FuncionarioLista = () => {
         const funcionarioData = {
             nome,
             email,
+            equipeId: equipe.id
         };
         try {
             if (!edit) {
+                console.log("Funcionario: ", funcionarioData);
                 await createFuncionairo(funcionarioData);
                 window.location.reload();
             } else {
-                console.log("esse é o id:  ", id);
-                console.log("esse é o funcionario: ", funcionarioData)
+                console.log("esse é o funcionario: ", funcionarioData);
                 await patchFuncionario(id, funcionarioData);
                 window.location.reload();
             }
@@ -98,7 +103,7 @@ const editarFunc = async (id) => {
 
 return (
     <div>
-        <h3>NOME DA EQUIPE</h3>
+        <h3>{equipe.nome}</h3>
         <table>
             <thead>
                 <tr>
@@ -108,28 +113,26 @@ return (
                 </tr>
             </thead>
             <tbody>
-                {funcionarios.length === 0 ? (
+                {funcionarios.filter(funcionario => funcionario.equipe.id === equipe.id).length === 0 ? (
                     <tr>
                         <td colSpan="2">Nenhum funcionário encontrado</td>
                     </tr>
                 ) : (
-                    funcionarios.map((funcionario) => (
+                    funcionarios.filter(funcionario => funcionario.equipe.id === equipe.id).map((funcionario) => (
                         <tr key={funcionario.id}>
                             <td>{funcionario.nome}</td>
                             <td>{funcionario.email}</td>
                             <td>
-                                {/* Botão de Editar (ícone de lápis) */}
                                 <button
                                     className="edit-button"
-                                    onClick={() => editarFunc(funcionario.id)} // Função de edição
+                                    onClick={() => editarFunc(funcionario.id)}
                                 >
                                     ✏️
                                 </button>
 
-                                {/* Botão de Excluir (ícone de X) */}
                                 <button
                                     className="delete-button"
-                                    onClick={() => handleDelete(funcionario.id)} // Função de exclusão
+                                    onClick={() => handleDelete(funcionario.id)}
                                 >
                                     ❌
                                 </button>
@@ -156,8 +159,8 @@ return (
                             <input type="email" id="email" placeholder='Digite seu email' value={email} onChange={(e) => setEmail(e.target.value)} required />
                         </div>
                         <div className='button-add'>
-                            <button type="submit" onClick={handleCreate}>Adicionar</button>
-                            <button type="button" onClick={closeForm}>cancelar</button>
+                            <button type="submit" onClick={handleCreate}>{edit ? "Salvar" : "Adicionar"}</button>
+                            <button type="button" onClick={() => {closeForm(); setEdit(false); setEmail(); setNome();}}>cancelar</button>
                         </div>
                     </form>
                 </div>

@@ -3,7 +3,7 @@ import apiFunc from "../service/apiFunc";
 export const getAllFuncionario = async () => {
   try {
     const response = await apiFunc.get(
-      "/funcionario"
+      "/funcionarios"
     );
     return response;
   } catch (error) {
@@ -14,7 +14,7 @@ export const getAllFuncionario = async () => {
 
 export const getFuncionario = async (userId) => {
   try {
-    const response = await apiFunc.get(`/funcionario/${userId}`);
+    const response = await apiFunc.get(`/funcionarios/${userId}`);
     return response;
   } catch (error) {
     console.error("Error fetching funcionario:", error);
@@ -24,17 +24,17 @@ export const getFuncionario = async (userId) => {
 
 export const createFuncionairo = async (userData) => {
   try {
-    const response = await apiFunc.post("/funcionario", userData);
+    const response = await apiFunc.post("/funcionarios", userData);
     return response.data;
   } catch (error) {
     console.error("Error creating funcionario:", error);
     throw error;
   }
-};
+};  
 
 export const deleteFuncionario = async (userId) => {
   try {
-    const response = await apiFunc.delete(`/funcionario/${userId}`);
+    const response = await apiFunc.delete(`/funcionarios/${userId}`);
     console.log("deletado com sucesso")
   } catch (error) {
     console.error("Erro ao atualizar funcionario:", error.message);
@@ -44,7 +44,7 @@ export const deleteFuncionario = async (userId) => {
 
 export const patchFuncionario = async (userId, userData) => {
   try {
-    const response = await apiFunc.put(`/funcionario/${userId}`, userData);
+    const response = await apiFunc.put(`/funcionarios/${userId}`, userData);
     return response.data;
   } catch (error) {
     console.error("Erro ao atualizar funcionario:", error.message);
