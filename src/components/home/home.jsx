@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import "./style.css";
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from "react";
-import { use } from "react";
 import { createEquipe, deleteEquipe, getAllEquipes, getEquipe, patchEquipe } from "../../api/equipe";
 
 const Home = () => {
