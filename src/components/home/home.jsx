@@ -51,7 +51,7 @@ const Home = () => {
             if(!edit){
                 console.log(equipeData)
                 await createEquipe(equipeData);
-                // window.location.reload();
+                window.location.reload();
             } else {
                 console.log("esse é a equipe: ", equipeData);
                 await patchEquipe(id, equipeData);
