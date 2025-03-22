@@ -4,9 +4,8 @@ import getOrCreateUserToken from './hooks/useUserTokens';
 import RouteApp from './routes';
 
 function App() {
-
   useEffect(() => {
-    document.title = "List's";  
+    document.title = "List's";
   }, []);
 
 getOrCreateUserToken();
