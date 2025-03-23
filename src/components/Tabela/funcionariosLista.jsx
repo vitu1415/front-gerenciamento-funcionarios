@@ -1,7 +1,7 @@
 import './Tabela.css';
 import React, { useState, useEffect } from 'react';
 import { getAllFuncionario, getFuncionario, createFuncionairo, deleteFuncionario, patchFuncionario } from '../../api/funcionario';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const FuncionarioLista = () => {
     const [funcionarios, setFuncionarios] = useState([]);
@@ -103,6 +103,7 @@ const editarFunc = async (id) => {
 
 return (
     <div>
+        <Link to="/" className="back-button">⬅ Voltar</Link>
         <h3>{equipe.nome}</h3>
         <table>
             <thead>
